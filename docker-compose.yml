@@ -1,0 +1,30 @@
+version : "3.2"
+
+services:
+    ga: 
+        user: root
+        image: ga:v5.3
+        container_name: ga_v5.3
+        hostname: master
+        ports: 
+            - "2020:22" 
+        volumes:
+            - /mnt/bioinformatic/bioinfo/bioinfo/data/G400:/mnt/Data
+            - /mnt/bioinformatic/bioinfo/bioinfo/workspace/GA:/mnt/workspace
+        command:
+            - /bin/bash 
+            - -c
+            - |
+                /etc/init.d/sgemaster.bgi start
+                /etc/init.d/sgeexecd.bgi start
+                /usr/sbin/sshd -D
+                cd 
+            - echo "alias GApipeline='python3 /home/biord/pipeline/SARS-CoV-2-GA/bin/GApipeline.cdc.onestep.py'" >> ~/.bashrc
+            - source ~/.bashrc
+#                ln -s /mnt/bioinformatic/bioinfo/bioinfo/data/G400 ~
+#                ln -s /mnt/bioinformatic/bioinfo/bioinfo/workspace/GA ~ 
+#        deploy: 
+#            resources: 
+#                limits: 
+#                    cpus : "50"
+#                    memory : "100G"

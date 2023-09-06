@@ -3,8 +3,11 @@
 # Docker status commands
 ```sh
 
-
-
+docker ps 
+docker stop ga_v5.3
+docker rm ga_v5.3
+docker-compose -f docker-compose.yml up -d
+docker-compose down 
 
 ```
 
